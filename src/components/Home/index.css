@@ -9,6 +9,7 @@
   height: 100%;
   overflow: hidden;
   position: relative;
+  display: flex;
 }
 
 .container__image {
@@ -20,7 +21,7 @@
 }
 
 .container__image img {
-  display: block;
+  display: flex;
   width: 100%;
 }
 

@@ -1,4 +1,4 @@
-.container__form {
+ .container__form {
   background: linear-gradient(180deg, #33383d 0%, #1c1d20 100%);
 }
 .container__form {
@@ -85,13 +85,13 @@
   font-size: 28px;
 }
 
-.container__login form div {
+/* .container__login form div {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
-.container__login a {
+.container__login button {
   width: 379px;
   height: 67px;
   color: #ffffff;
@@ -109,5 +109,44 @@
   box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.15);
   border-radius: 50px;
   margin-top: 115px;
+  border: 0;
+} 
+
+/* ------------------------------------------------------------------------- */
+
+
+
+/* .form__input{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 5px;
+  outline: none;
+  padding-left: 1rem;
+
 }
 
+label{
+  position: absolute;
+  background-color: white;
+  right:-3rem;
+  top: .55rem;
+  transition: right .10s ease-in;
+  cursor: text;
+}
+
+.form__input:hover{
+  border: 2px solid green;
+}
+
+.form__input:focus{
+  border:2px solid cyan
+}
+
+input[type='text']:focus ~ label, 
+input[type='password']:focus ~ label,
+.form__input:not(:placeholder-shown).form__input:not(:focus) ~ label{
+  right:0 ;
+}
+   */

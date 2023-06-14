@@ -21,7 +21,7 @@
   font-size: 60px;
   line-height: 75px;
   color: #e0e0e0;
-  margin-top: 34px;
+  margin-top: 94px;
 }
 .container p {
   width: 301px;
@@ -50,6 +50,7 @@
 
 .form_id label {
   display: flex;
+  font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
@@ -71,6 +72,13 @@
   border-radius: 50px;
   display: flex;
   margin-left: auto;
+  letter-spacing: 2px;
+
+  font-family: 'Mulish';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 15px;
 }
 
 .container__form input::placeholder {
@@ -78,7 +86,7 @@
   font-size: 16px;
 }
 
-.container__form a {
+.container__form button {
     width: 471px;
     height: 60px;
     color: #ffffff;
@@ -95,5 +103,6 @@
     background: linear-gradient(90deg, #ff2d04 0%, #c13216 100%);
     box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.15);
     border-radius: 50px;
-    margin-top: 19px;
+    margin-top: 56px;
+    border: 0;
 }
