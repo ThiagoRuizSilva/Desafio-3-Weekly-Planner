@@ -1,13 +1,13 @@
 import styles from './styles.module.css'
 
-import Form from "../../components/Home/form"
+import FormRegister from '../../components/Home/Form register'
 import Home from "../../components/Home"
 
 export default function Register(){
     return(
         <div className={styles.container}>
             
-            <Form/>
+            <FormRegister/>
             <Home/>
         </div>
     )
