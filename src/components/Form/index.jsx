@@ -3,7 +3,7 @@ import styles from "./index.module.css";
 
 import { TiLockClosedOutline } from "react-icons/ti";
 import { AiOutlineUser } from "react-icons/ai";
-import { auth } from "../../../FirebaseConection";
+import { auth } from "../../FirebaseConection";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 
@@ -37,14 +37,6 @@ export default function Form() {
 
   const spanClassName = loged ? "input_error" : "";
 
-
-
-
-
-
-
-
-
   return (
     <div className={styles.container__form}>
       <div className={styles.container}>
@@ -63,7 +55,12 @@ export default function Form() {
               onChange={(e) => setEmail(e.target.value)}
             />
             <div id="user__id" className="label__user">
-              <AiOutlineUser color="#e0e0e0" fontSize={"20px"} id={styles.user__id} className={email !== "" ? styles.move : ""} />
+              <AiOutlineUser
+                color="#e0e0e0"
+                fontSize={"20px"}
+                id={styles.user__id}
+                className={email !== "" ? styles.move : ""}
+              />
             </div>
           </div>
           {/* </div>  */}
@@ -73,10 +70,15 @@ export default function Form() {
               type="password"
               placeholder="password"
               value={password}
-               className={loged ? styles.input_error : ""}
+              className={loged ? styles.input_error : ""}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <TiLockClosedOutline color="#e0e0e0" fontSize={"20px"} id={styles.user_password} className={password !== "" ? styles.move : ""} />
+            <TiLockClosedOutline
+              color="#e0e0e0"
+              fontSize={"20px"}
+              id={styles.user_password}
+              className={password !== "" ? styles.move : ""}
+            />
           </div>
 
           <div className={styles.erro__login}>

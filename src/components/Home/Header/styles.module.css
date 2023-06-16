@@ -1,0 +1,125 @@
+header {
+  position: relative;
+  width: 1920px;
+  height: 130px;
+  background: #ffffff;
+  box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 0px 12px 24px;
+  gap: 8px;
+  position: absolute;
+  width: 588px;
+  height: 64px;
+  left: 0px;
+  top: 33px;
+  background: #000000;
+  border-radius: 0px 14px 15px 0px;
+}
+.container h1 {
+  width: 295px;
+  height: 44px;
+
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 20px;
+  /* or 91% */
+
+  display: flex;
+  align-items: center;
+
+  color: #ffffff;
+  transform: translateX(-130px);
+}
+.container p {
+  width: 295px;
+  height: 44px;
+
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 20px;
+
+  display: flex;
+  align-items: center;
+
+  color: #ffffff;
+  transform: translateX(-130px);
+}
+.logos {
+  position: absolute;
+  width: 176px;
+  height: 81px;
+  left: 1721px;
+  top: 20px;
+}
+.logos button {
+  width: 55px;
+  height: 36px;
+  border: 0;
+  background: transparent;
+  transform: translateX(130px);
+  margin-top: 20px;
+}
+.logos p {
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 20px;
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #000000;
+}
+.dates__header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 15px;
+
+  position: absolute;
+  width: 201px;
+  height: 61px;
+  left: 777px;
+  top: 31px;
+}
+.dates__header h1 {
+  width: 137px;
+  height: 26px;
+
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #3b3e45;
+}
+.dates__header p {
+  width: 201px;
+  height: 20px;
+  transform: translateX(15px);
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #3b3e45;
+}
