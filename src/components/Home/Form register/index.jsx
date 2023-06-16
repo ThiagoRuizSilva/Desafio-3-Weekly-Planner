@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import styles from "./index.module.css";
 
-import { auth } from "../../../FirebaseConection";
+import { addDoc, collection } from "firebase/firestore";
+import { auth, db } from "../../../FirebaseConection";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+
+
+
 
 export default function FormRegister() {
   const navigate = useNavigate();
@@ -39,15 +43,15 @@ export default function FormRegister() {
 
     if (email !== "" && password !== "") {
       // Verificar a idade mínima
-      await createUserWithEmailAndPassword(auth, email, password)
+      // await createUserWithEmailAndPassword(auth, email, password)
 
-           .then(() => {
-              alert("Registrado com sucesso")
-              navigate('/');
-            })
-            .catch(() => {
-             alert('Email já existente insira outro');
-           });
+      //      .then(() => {
+      //         alert("Email validado")
+      //         // navigate('/');
+      //       })
+      //       .catch(() => {
+      //        alert('Email já existente insira outro');
+      //      });
         
 
 
@@ -73,14 +77,41 @@ export default function FormRegister() {
       confirmPassword === ""
     ) {
       alert("Preencha todos campos por favor");
+      return
     }
 
     if (!handleEmail(email)) {
       alert("O email não atende aos requisitos")
+      return
+    }
+    if(!handlePassword(password)){
+      alert("A senha não atende aos requisitos")
+      return
     }
     if (password != confirmPassword) {
       alert("As senhas não correspondem.");
+      return
     }
+
+    await createUserWithEmailAndPassword(auth, email, password)
+
+           .then(() => {
+              alert("Email validado")
+              // navigate('/');
+            })
+            .catch(() => {
+             alert('Email já existente insira outro');
+           });
+
+    await addDoc(collection(db, "usuario"), {
+      email,
+      password,
+      country,
+      city,
+    }); alert("Registro feito com sucesso");
+    navigate('/')
+
+
   }
 
 
@@ -112,13 +143,11 @@ export default function FormRegister() {
   handleEmail();
 
   function handlePassword(password) {
-    let regexPassword = /^(?=.*[!@#$%^&*])(?=.*\d)(?=.*[A-Z]).+$/;
+    let regexPassword =  /^(?=.[A-Z])(?=.[!@#$%^&])(?=.\d).+$/;
   
-    if (regexPassword.test(password)) {
-      return true
-    } else {
-      return false
-    }
+    return regexPassword.test(password) 
+     
+    
   }
   
   handlePassword(); 

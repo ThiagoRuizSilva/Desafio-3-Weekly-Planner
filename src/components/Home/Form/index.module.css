@@ -111,13 +111,24 @@
   transition: right 0.2s ease-in;
   cursor: text;
   /* margin-left: 100%; */
+  
 }
 
-input[type="email"]:focus ~ label,
+#user__id {
+  position: absolute;
+    top: 550px;
+    left: 700px;
+}
+#user_password {
+  position: absolute;
+    left: 700px;
+    top: 640px;
+}
+/* input[type="email"]:focus ~ label,
 input[type="password"]:focus ~ label,
 .forminput:not(:placeholder-shown).form__input:not(:focus) ~ label {
   right: 1.5rem;
-}
+} */
 
  .input__container svg {
   font-size: 24px;
@@ -177,7 +188,8 @@ input[type="password"]:focus ~ label,
 }
 
 .input__container .input_error {
-  color: #e9b425;
+  /* color: #e9b425; */
+  border: 1px solid #e9b425 ;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -213,4 +225,8 @@ input[type="text"] {
 
 input[type="password"]::placeholder {
   position: absolute;
+}
+
+.move {
+  transform: translateX(-62px);
 }

@@ -45,7 +45,6 @@ export default function Form() {
 
 
 
-
   return (
     <div className={styles.container__form}>
       <div className={styles.container}>
@@ -59,12 +58,12 @@ export default function Form() {
               type="text"
               placeholder="user name"
               id="user__id"
-              className={`form__input ${spanClassName}`}
+              className={loged ? styles.input_error : ""}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <div htmlFor="user__id" className="label__user">
-              <AiOutlineUser color="#e0e0e0" fontSize={"20px"} />
+            <div id="user__id" className="label__user">
+              <AiOutlineUser color="#e0e0e0" fontSize={"20px"} id={styles.user__id} className={email !== "" ? styles.move : ""} />
             </div>
           </div>
           {/* </div>  */}
@@ -74,9 +73,10 @@ export default function Form() {
               type="password"
               placeholder="password"
               value={password}
+               className={loged ? styles.input_error : ""}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <TiLockClosedOutline color="#e0e0e0" fontSize={"20px"} />
+            <TiLockClosedOutline color="#e0e0e0" fontSize={"20px"} id={styles.user_password} className={password !== "" ? styles.move : ""} />
           </div>
 
           <div className={styles.erro__login}>
