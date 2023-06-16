@@ -10,55 +10,85 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Form() {
-  const navigate = useNavigate()
- const [email, setEmail] = useState('')
- const [password, setPassword] = useState('')
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loged, setLoged] = useState(false);
+
+  async function handleLogin(e) {
+    e.preventDefault();
+
+    if (email !== "" && password !== "") {
+      await signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          setLoged(false);
+          alert("usuario logado");
+        })
+        .catch(() => {
+          alert("erro ao logar senha incorretas");
+          setLoged(true);
+
+          // navigate('/register')
+        });
+    } else {
+      alert("prencha os campo");
+    }
+  }
+
+  const spanClassName = loged ? "input_error" : "";
 
 
-async function handleLogin(e) {
-e.preventDefault()
-
-if(email !== '' && password !== '') {
-  await signInWithEmailAndPassword(auth, email, password)
-  .then(() => {
-    navigate('/register')
-  })
-  .catch(()=> {
-    alert("erro ao logar senha incorretas")
-  })
 
 
-}else {
-  alert("prencha os campo")
-}
 
-}
+
+
+
 
 
   return (
-    <div className={styles.container__form} >
+    <div className={styles.container__form}>
       <div className={styles.container}>
         <h1>Welcome,</h1>
         <p>To continue browsing safely, log in to the network.</p>
         <form className={styles.container__login} onSubmit={handleLogin}>
           <h2>Login</h2>
-           <div className={styles.label_float}>
-            <div className={styles.input__container}>
-            <input type="text" placeholder="user name" id="user__id" className={styles.form__input} value={email} onChange={(e) => setEmail(e.target.value)} />
-            <label htmlFor="user__id">
-              <AiOutlineUser />
-            </label>
+          {/* <div className={styles.label_float}> */}
+          <div className={styles.input__container}>
+            <input
+              type="text"
+              placeholder="user name"
+              id="user__id"
+              className={`form__input ${spanClassName}`}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <div htmlFor="user__id" className="label__user">
+              <AiOutlineUser color="#e0e0e0" fontSize={"20px"} />
             </div>
-          </div> 
+          </div>
+          {/* </div>  */}
 
-
-          <div className={styles.password__id}>
-            <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            <TiLockClosedOutline size={30} style={{ marginBottom: "-10px" }} />
+          <div className={styles.input__container}>
+            <input
+              type="password"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <TiLockClosedOutline color="#e0e0e0" fontSize={"20px"} />
           </div>
 
-          <button type="submit" >Login</button>
-           {/* <Link to="/register">
+          <div className={styles.erro__login}>
+            {loged ? (
+              <span>Wow, invalid username or password. Please, try again!</span>
+            ) : (
+              ""
+            )}
+          </div>
+
+          <button type="submit">Log in</button>
+          {/* <Link to="/register">
             Login
           </Link> */}
         </form>

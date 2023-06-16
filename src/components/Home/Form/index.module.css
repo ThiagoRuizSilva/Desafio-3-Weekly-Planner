@@ -1,20 +1,19 @@
- .container__form {
+.container__form {
   background: linear-gradient(180deg, #33383d 0%, #1c1d20 100%);
 }
 .container__form {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  width: 960px;
+  height: 1080px;
+  display: block;
+  padding: 197px 191px 296px 298px;
 }
 .container {
+  width: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: start;
-  align-items: start;
-  text-align: start;
+  
+  
 }
 
 .container h1 {
@@ -48,42 +47,88 @@
 }
 
 .container__login {
-  width: 440px;
-  height: 100%;
+  width: 471px;
+  height: auto;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
+  gap: 32px;
+  /* align-items: flex-start;
+  justify-content: center; */
   margin-top: 135px;
 }
 
-.container__login input {
-  width: 379px;
-  height: 60px;
+/* .container__login input {
+  width: 100%;
+  height: 100%;
+  position: absolute;
   padding: 20px;
   background: #26292c;
   border: 1px solid #ffffff;
   color: #e0e0e0;
   border-radius: 50px;
-  margin-top: 33px;
+  outline: none;
   margin-right: 18px;
-}
+} */
+
+.input__container {
+  
+  display: flex;
+
+  
+} 
 
 .container__login input::placeholder {
   color: #e0e0e0;
-  font-size: 16px;
+  font-size: 19px;
+}
+/* .label__user {
+  position: absolute;
+  right: -2rem;
+  top: 1.2rem;
+  background-color: transparent;
+  cursor: text;
+} */
+
+ .container__login input {
+  width: 379px;
+  height: 60px;
+  border: 1px solid #ffffff;
+  border-radius: 50px;
+  padding: 20px 0 20px 20px;
+  margin-right: 18px;
+  background-color: transparent;
+  color: #e0e0e0;
+  
+  outline: none;
+} 
+/* .container__login div {
+  
+} */
+.label__user {
+  background-color: transparent;
+  /* right: -2rem;
+  top: 1.2rem; */
+  transition: right 0.2s ease-in;
+  cursor: text;
+  /* margin-left: 100%; */
 }
 
-.container__login svg {
+input[type="email"]:focus ~ label,
+input[type="password"]:focus ~ label,
+.forminput:not(:placeholder-shown).form__input:not(:focus) ~ label {
+  right: 1.5rem;
+}
+
+ .input__container svg {
   font-size: 24px;
   color: white;
-  margin-bottom: -5px;
+  
 }
 
 .password__id svg {
   margin-bottom: -10px;
   font-size: 28px;
-}
+} 
 
 /* .container__login form div {
   display: flex;
@@ -108,45 +153,64 @@
   background: linear-gradient(90deg, #ff2d04 0%, #c13216 100%);
   box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.15);
   border-radius: 50px;
-  margin-top: 115px;
+  margin-top: 83px;
   border: 0;
-} 
+}
+.erro__login {
+  width: 379px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.erro__login span {
+  width: 283px;
+  height: 40px;
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  color: #e9b425;
+  margin: 28px 0 -28px 0;
+}
+
+.input__container .input_error {
+  color: #e9b425;
+}
 
 /* ------------------------------------------------------------------------- */
+input[type="password"] {
+
+  -webkit-text-security: disc;
+
+  font-size: 24px; 
+
+}
 
 
-
-/* .form__input{
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  border: 1px solid black;
-  border-radius: 5px;
+ /* form input {
+  width: 379px;
+height: 60px;
+border: 1px solid #ffffff;
+  border-radius: 50px;
+  padding: 20px 0 20px 20px;
+  margin-right: 18px;
+  background-color: transparent;
+  color: #e0e0e0;
+  
   outline: none;
-  padding-left: 1rem;
 
+}  */
+/* ::placeholder {
+  font-size: 16px;
+} */
+
+input[type="text"] {
+  font-size: 19px;
 }
 
-label{
+input[type="password"]::placeholder {
   position: absolute;
-  background-color: white;
-  right:-3rem;
-  top: .55rem;
-  transition: right .10s ease-in;
-  cursor: text;
 }
-
-.form__input:hover{
-  border: 2px solid green;
-}
-
-.form__input:focus{
-  border:2px solid cyan
-}
-
-input[type='text']:focus ~ label, 
-input[type='password']:focus ~ label,
-.form__input:not(:placeholder-shown).form__input:not(:focus) ~ label{
-  right:0 ;
-}
-   */
