@@ -230,3 +230,8 @@ input[type="password"]::placeholder {
 .move {
   transform: translateX(-62px);
 }
+
+input[type="text"]:focus + span {
+  transform: scale (2.5);
+  z-index: 1;
+ }

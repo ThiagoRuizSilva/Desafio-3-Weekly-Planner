@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getFirestore } from 'firebase/firestore'
+import { getFirestore, getDocs, collection } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 
 const firebaseConfig = {
@@ -18,3 +18,17 @@ const firebaseConfig = {
   const auth = getAuth(firebaseApp)
 
   export { db, auth }
+
+  export const dados = async () => {
+    const cityname = collection(db, "usuario");
+    const dc = await getDocs(cityname);
+  
+    const cep = [];
+    dc.forEach((busca) => {
+      const usersDados = busca.data();
+      if (usersDados.city && usersDados.country) {
+        cep.push({ city: usersDados.city, country: usersDados.country });
+      }
+    });
+    return cep;
+  };

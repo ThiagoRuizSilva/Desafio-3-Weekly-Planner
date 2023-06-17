@@ -123,3 +123,12 @@ header {
 
   color: #3b3e45;
 }
+
+
+.clima__tempo {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 900px;
+    z-index: 1000;
+}

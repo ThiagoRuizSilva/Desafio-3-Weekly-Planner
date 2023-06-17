@@ -134,7 +134,7 @@ export default function FormRegister() {
   handleEmail();
 
   function handlePassword(password) {
-    let regexPassword = /^(?=.[A-Z])(?=.[!@#$%^&])(?=.\d).+$/;
+    let regexPassword = /^(?=.*[A-Z])(?=.*[!#@$%&])(?=.*[0-9])(?=.*[a-z])/;
 
     return regexPassword.test(password);
   }

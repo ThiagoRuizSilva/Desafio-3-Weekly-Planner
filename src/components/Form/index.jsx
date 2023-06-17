@@ -54,14 +54,14 @@ export default function Form() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <div id="user__id" className="label__user">
+            <span id="user__id" className="label__user">
               <AiOutlineUser
                 color="#e0e0e0"
                 fontSize={"20px"}
                 id={styles.user__id}
                 className={email !== "" ? styles.move : ""}
               />
-            </div>
+            </span>
           </div>
           {/* </div>  */}
 
