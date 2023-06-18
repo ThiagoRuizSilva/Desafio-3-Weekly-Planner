@@ -5,6 +5,10 @@ header {
   background: #ffffff;
   box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
 }
+body {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 4px 4px 70px rgba(0, 0, 0, 0.25);
+}
 .container {
   display: flex;
   flex-direction: column;
@@ -39,16 +43,13 @@ header {
 .container p {
   width: 295px;
   height: 44px;
-
   font-family: "Mulish";
   font-style: normal;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 13px;
   line-height: 20px;
-
   display: flex;
   align-items: center;
-
   color: #ffffff;
   transform: translateX(-130px);
 }
@@ -124,11 +125,137 @@ header {
   color: #3b3e45;
 }
 
-
 .clima__tempo {
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    left: 900px;
-    z-index: 1000;
+  position: absolute;
+  width: 137px;
+  height: 18px;
+  left: 1194px;
+  top: 26px;
+
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+
+  text-align: center;
+
+  color: #222222;
+}
+
+.container__input {
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  left: 24px;
+  top: 157px;
+}
+.container__input select,
+.container__input input {
+  background: #ffffff;
+  border: 1px solid #fece00;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.container__input input::placeholder {
+  width: 106.98px;
+height: 20px;
+  font-family: 'Mulish';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 20px;
+
+display: flex;
+align-items: center;
+
+color: rgba(0, 0, 0, 0.7)
+}
+.input__task {
+  box-sizing: border-box;
+  width: 391px;
+  height: 45px;
+}
+.dia {
+  width: 240px;
+}
+
+.hora {
+  position: absolute;
+  width: 120px;
+  height: 45px;
+  left: 641px;
+}
+
+.buttons {
+  position: absolute;
+  width: 416px;
+  height: 45px;
+  left: 1480px;
+  top: 158px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+
+.icon_plus {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 12px;
+  gap: 4px;
+
+  width: 200px;
+  height: 44px;
+
+  background: #00ba88;
+  border-radius: 10px;
+  border: 0;
+}
+
+.icon_menos {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 12px;
+  gap: 4px;
+
+  width: 200px;
+  height: 44px;
+
+  background: #ff3d1f;
+  border-radius: 10px;
+  border: 0;
+}
+
+.calendar {
+  width: 154px;
+  height: 20px;
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+}
+
+.delete {
+  width: 92px;
+  height: 20px;
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+
+  color: #ffffff;
 }
