@@ -185,6 +185,50 @@ export default function Header() {
           <p className={styles.delete}>Delete All</p>
         </button>
       </div>
+
+            <div className={styles.calendario}>
+              <div className={styles.monday}>
+                <p className={styles.semana}>Monday</p>
+              </div>
+              <div className={styles.tuesday}>
+                <p className={styles.semana}>Tuesday</p>
+              </div>
+              <div className={styles.wednesday}>
+                <p className={styles.semana}>Wednesday</p>
+              </div>
+              <div className={styles.thursday}>
+                <p className={styles.semana}>Thursday</p>
+              </div>
+              <div className={styles.friday}>
+                <p className={styles.semana}>Friday</p>
+              </div>
+              <div className={styles.saturday}>
+                <p className={styles.semana}>Saturday</p>
+              </div>
+              <div className={styles.sunday}>
+                <p className={styles.semana}>Sunday</p>
+              </div>
+            </div>
+
+
+            <div className={styles.time_planner}>
+              <h1>Time</h1>
+            </div>
+
+
+            <ul className={styles.container_task}>
+              <li>
+                <div className={styles.tasks}>
+                <div className={styles.horas_task}>
+                  <span>10h30m</span>
+                </div>
+                <div className={styles.text_task}>
+                  <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem ipsum dolor sit amet, consectetur adipiscing elit</span>
+                  <button>Delete</button>
+                </div>
+                </div>
+              </li>
+            </ul>
     </div>
   );
 }
