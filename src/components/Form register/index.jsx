@@ -104,7 +104,7 @@ export default function FormRegister() {
       city,
     });
     alert("Registro feito com sucesso");
-    navigate("/");
+    navigate("/login");
   }
 
   function capitalizeFirstLetter(string) {

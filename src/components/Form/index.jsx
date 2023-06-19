@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./index.module.css";
 
 import { TiLockClosedOutline } from "react-icons/ti";
 import { AiOutlineUser } from "react-icons/ai";
 import { auth } from "../../FirebaseConection";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState } from "react";
 
-import { useNavigate } from "react-router-dom";
+
 
 export default function Form() {
   const navigate = useNavigate();
@@ -15,17 +15,26 @@ export default function Form() {
   const [password, setPassword] = useState("");
   const [loged, setLoged] = useState(false);
 
+
+  
+
   async function handleLogin(e) {
     e.preventDefault();
 
     if (email !== "" && password !== "") {
+     
       await signInWithEmailAndPassword(auth, email, password)
         .then(() => {
           setLoged(false);
-          alert("usuario logado");
+          localStorage.setItem("user", email)
+          alert("Usuario logado");
+          navigate("/")
         })
         .catch(() => {
-          alert("erro ao logar senha incorretas");
+          if(confirm("Email não encontrado! Deseja realizar o cadastro?") === true) {
+            navigate("/register")
+          }
+          // alert("Erro ao logar senha incorretas");
           setLoged(true);
 
           // navigate('/register')
@@ -89,7 +98,9 @@ export default function Form() {
             )}
           </div>
 
-          <button type="submit">Log in</button>
+          <button type="submit">
+          <Link to="/">Log in</Link>
+          </button>
           {/* <Link to="/register">
             Login
           </Link> */}

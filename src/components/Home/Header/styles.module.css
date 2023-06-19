@@ -11,7 +11,7 @@ body {
   background-image: url(../../../assets/CompassBackgroud.png);
   background-repeat: no-repeat;
   background-position-x: 1222px;
-  background-position-y: 451px ;
+  background-position-y: 451px;
 }
 .container {
   display: flex;
@@ -275,69 +275,35 @@ body {
   gap: 3px;
 }
 
-.monday {
+.tab {
   width: 240px;
   height: 33px;
-  background: #ff0024;
   box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
   border-radius: 9px 9px 0px 0px;
+}
+
+.monday {
+  background: #ff0024;
 }
 
 .tuesday {
-  width: 240px;
-  height: 33px;
-  left: 293px;
-  top: 0px;
   background: #ff8000;
-  box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
-  border-radius: 9px 9px 0px 0px;
 }
 
 .wednesday {
-  width: 240px;
-  height: 33px;
-  left: 536px;
-  top: 0px;
   background: #ffce00;
-  box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
-  border-radius: 9px 9px 0px 0px;
 }
 .thursday {
-  width: 240px;
-  height: 33px;
-  left: 779px;
-  top: 0px;
   background: rgba(255, 0, 36, 0.7);
-  box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
-  border-radius: 9px 9px 0px 0px;
 }
 .friday {
-  width: 240px;
-  height: 33px;
-  left: 1022px;
-  top: 0px;
-
   background: rgba(255, 128, 0, 0.7);
-  box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
-  border-radius: 9px 9px 0px 0px;
 }
 .saturday {
-  width: 240px;
-  height: 33px;
-  left: 1265px;
-  top: 0px;
   background: rgba(255, 206, 0, 0.7);
-  box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
-  border-radius: 9px 9px 0px 0px;
 }
 .sunday {
-  width: 240px;
-  height: 33px;
-  left: 1508px;
-  top: 0px;
   background: rgba(255, 0, 36, 0.5);
-  box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
-  border-radius: 9px 9px 0px 0px;
 }
 .semana {
   width: 110.61px;
@@ -386,7 +352,6 @@ body {
   height: 679px;
   left: 24px;
   top: 360px;
- 
 }
 
 li {
@@ -397,10 +362,10 @@ li {
   box-sizing: border-box;
   width: 85px;
   height: 85px;
-  background: #ff8000;
+  /* background: #ff8000; */
   border-bottom: 1px solid #dcdfe3;
   border-radius: 10px;
- 
+  /*  */
 }
 
 .horas_task span {
@@ -421,6 +386,7 @@ li {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 17px;
+  margin-bottom: 14px;
 }
 
 .calendario button {
@@ -439,9 +405,17 @@ li {
   box-shadow: 0px 2px 5.5px rgba(0, 0, 0, 0.02);
   backdrop-filter: blur(10.5px);
   border-radius: 15px;
-  border-left:14px solid #FF8000;
   
 }
+
+.marcador {
+  position: absolute;
+  width: 14px;
+  height: 85px;
+  z-index: 1;
+  border-radius: 15px 0px 0px 15px;
+}
+
 .text_task button {
   display: flex;
   flex-direction: row;
@@ -469,26 +443,26 @@ li {
 
 .text_task span {
   position: absolute;
-width: 442px;
-height: 60px;
-top: 10px;
-left: 10px;
-font-family: 'Mulish';
-font-style: normal;
-font-weight: 400;
-font-size: 20px;
-line-height: 20px;
-color: #333333;
+  width: 442px;
+  height: 60px;
+  top: 10px;
+  left: 10px;
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 20px;
+  color: #333333;
+  padding-left: 13px;
 }
 
 .corSemana {
   width: 290px;
-height: 33px;
-left: 243px;
-top: 0px;
+  height: 33px;
+  left: 243px;
+  top: 0px;
 
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 24px rgba(168, 168, 168, 0.25);
-border-radius: 9px 9px 0px 0px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
+    0px 4px 24px rgba(168, 168, 168, 0.25);
+  border-radius: 9px 9px 0px 0px;
 }
-
-

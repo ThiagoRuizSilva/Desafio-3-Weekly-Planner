@@ -16,35 +16,44 @@ export default function Header() {
   const [dado, setCity] = useState([]);
 
   const [descricao, setDescricao] = useState("");
-  const [semana, setSemana] = useState("Monday");
+  const [semana, setSemana] = useState("monday");
+  const [selectSemana, setSelectSemana] = useState("monday");
   const [hora, setHora] = useState("00:00");
   const [task, setTask] = useState([]);
 
-  const [cor, setCor] = useState('');
+  const [cor, setCor] = useState("monday");
+  const user = localStorage.getItem("user");
 
   const mudaCor = (semana) => {
     setCor(semana);
   };
 
   const adicionarTarefa = async () => {
+    console.log(task);
     try {
       const newTask = {
         descricao: descricao,
-        semana: semana,
+        semana: selectSemana,
         hora: hora,
+        cor: cor,
+        user: user,
       };
       await addDoc(collection(db, "tarefas"), newTask);
       alert("Tarefa adicionada");
       setDescricao("");
-      setSemana("");
-      setHora("");
+      setSelectSemana("monday");
+      user;
+      setHora("00:00");
+      // setSemana(semana);
+      console.log(semana);
+      setCor(semana);
       setTask((atual) => {
-        return [...atual, newTask];
+      return [...atual, newTask];
       });
     } catch (error) {
       console.log(error);
     }
-    console.log("teste");
+    console.log(task);
   };
 
   useEffect(() => {
@@ -103,8 +112,6 @@ export default function Header() {
       clearInterval(contador);
     };
   }, []);
-  
-  
 
   return (
     <div>
@@ -152,16 +159,16 @@ export default function Header() {
         <select
           name="dia"
           className={styles.dia}
-          onChange={(e) => setSemana(e.target.value)}
-          value={semana}
+          onChange={(e) => setSelectSemana(e.target.value)}
+          value={selectSemana}
         >
-          <option value="Monday">Monday</option>
-          <option value="Tuesday">Tuesday</option>
-          <option value="Wednesday">Wednesday</option>
-          <option value="Thursday">Thursday</option>
-          <option value="Friday">Friday</option>
-          <option value="Saturday">Saturday</option>
-          <option value="Sunday">Sunday</option>
+          <option value="monday">Monday</option>
+          <option value="tuesday">Tuesday</option>
+          <option value="wednesday">Wednesday</option>
+          <option value="thursday">Thursday</option>
+          <option value="friday">Friday</option>
+          <option value="saturday">Saturday</option>
+          <option value="sunday">Sunday</option>
         </select>
         <select
           name="hora"
@@ -232,27 +239,60 @@ export default function Header() {
       </div>
 
       <div className={styles.calendario}>
-        <button className={`${styles.monday} ${cor === "monday" ? styles.corSemana : ""}`} onClick={() => mudaCor("monday")}>
+        <button
+          className={`${styles.tab} ${styles.monday} ${
+            cor === "monday" ? styles.corSemana : ""
+          }`}
+          onClick={() => mudaCor("monday")}
+        >
           <p className={styles.semana}>Monday</p>
         </button>
-        <button className={`${styles.tuesday} ${cor === "tuesday" ? styles.corSemana : ""}`} onClick={() => mudaCor("tuesday")}>
+        <button
+          className={`${styles.tab} ${styles.tuesday} ${
+            cor === "tuesday" ? styles.corSemana : ""
+          }`}
+          onClick={() => mudaCor("tuesday")}
+        >
           <p className={styles.semana}>Tuesday</p>
         </button>
         <button
-          className={`${styles.wednesday} ${cor === "wednesday" ? styles.corSemana : ""}`} onClick={() => mudaCor("wednesday")}>
+          className={`${styles.tab} ${styles.wednesday} ${
+            cor === "wednesday" ? styles.corSemana : ""
+          }`}
+          onClick={() => mudaCor("wednesday")}
+        >
           <p className={styles.semana}>Wednesday</p>
         </button>
         <button
-          className={`${styles.thursday} ${cor === "thursday" ? styles.corSemana : ""}`} onClick={() => mudaCor("thursday")} >
+          className={`${styles.tab} ${styles.thursday} ${
+            cor === "thursday" ? styles.corSemana : ""
+          }`}
+          onClick={() => mudaCor("thursday")}
+        >
           <p className={styles.semana}>Thursday</p>
         </button>
-        <button className={`${styles.friday} ${cor === "friday" ? styles.corSemana : ""}`} onClick={() => mudaCor("friday")}>
+        <button
+          className={`${styles.tab} ${styles.friday} ${
+            cor === "friday" ? styles.corSemana : ""
+          }`}
+          onClick={() => mudaCor("friday")}
+        >
           <p className={styles.semana}>Friday</p>
         </button>
-        <button className={`${styles.saturday} ${cor === "saturday" ? styles.corSemana : ""}`} onClick={() => mudaCor("saturday")}>
+        <button
+          className={`${styles.tab} ${styles.saturday} ${
+            cor === "saturday" ? styles.corSemana : ""
+          }`}
+          onClick={() => mudaCor("saturday")}
+        >
           <p className={styles.semana}>Saturday</p>
         </button>
-        <button className={`${styles.sunday} ${cor === "sunday" ? styles.corSemana : ""}`} onClick={() => mudaCor("sunday")}>
+        <button
+          className={` ${styles.tab} ${styles.sunday} ${
+            cor === "sunday" ? styles.corSemana : ""
+          }`}
+          onClick={() => mudaCor("sunday")}
+        >
           <p className={styles.semana}>Sunday</p>
         </button>
       </div>
@@ -262,19 +302,26 @@ export default function Header() {
       </div>
 
       <ul className={styles.container_task}>
-        {task.map((elemento) =>  (
-          <li key={elemento.id}>
-            <div className={styles.tasks}>
-              <div className={styles.horas_task}>
-                <span>{elemento.hora}</span>
+        {task.map((elemento) =>
+          cor === "" || (elemento.semana && elemento.semana.includes(cor)) ? (
+            <li key={elemento.descricao}>
+              <div className={styles.tasks}>
+                <div className={` ${styles.horas_task} ${styles[elemento.semana]}`}>
+                  <span>{elemento.hora}</span>
+                </div>
+                <div>
+                  <div className={` ${styles.marcador} ${styles[elemento.semana]}`}></div>
+                  <div className={` ${styles.text_task} ${styles[elemento.semana]}`}>
+                    <span>{elemento.descricao}</span>
+                    <button>Delete</button>
+                  </div>
+                </div>
               </div>
-              <div className={styles.text_task}>
-                <span>{elemento.descricao}</span>
-                <button>Delete</button>
-              </div>
-            </div>
-          </li>
-        ))}
+            </li>
+          ) : (
+            ""
+          )
+        )}
       </ul>
     </div>
   );
