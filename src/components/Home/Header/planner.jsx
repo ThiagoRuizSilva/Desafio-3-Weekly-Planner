@@ -3,8 +3,9 @@ import logo from "../../../assets/CompassHeader.svg";
 import logout from "../../../assets/logout.svg";
 import { useState, useEffect } from "react";
 import cityClima from "../../../Api";
-import { dados } from "../../../FirebaseConection";
+import { dados, db } from "../../../FirebaseConection";
 import plus from "../../../assets/plus.svg";
+import { collection, addDoc } from "firebase/firestore";
 import menos from "../../../assets/icon_menos.svg";
 
 export default function Header() {
@@ -14,31 +15,58 @@ export default function Header() {
   const [weatherData, setWeatherData] = useState(null);
   const [dado, setCity] = useState([]);
 
+  const [descricao, setDescricao] = useState("");
+  const [semana, setSemana] = useState("Monday");
+  const [hora, setHora] = useState("00:00");
+  const [task, setTask] = useState([]);
+
+  const [cor, setCor] = useState('');
+
+  const mudaCor = (semana) => {
+    setCor(semana);
+  };
+
+  const adicionarTarefa = async () => {
+    try {
+      const newTask = {
+        descricao: descricao,
+        semana: semana,
+        hora: hora,
+      };
+      await addDoc(collection(db, "tarefas"), newTask);
+      alert("Tarefa adicionada");
+      setDescricao("");
+      setSemana("");
+      setHora("");
+      setTask((atual) => {
+        return [...atual, newTask];
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    console.log("teste");
+  };
+
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
         const users = await dados();
 
         if (users.length > 0) {
-          
           const cidade = users[0].city;
-          const chave_api = "6793186352a0010d32b351353dc8ba84"; 
-  
-          
+          const chave_api = "6793186352a0010d32b351353dc8ba84";
           const url = `http://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${chave_api}`;
           const response = await fetch(url);
           const data = await response.json();
-  
-         
           const temperatureCelsius = Math.round(data.main.temp - 273.15);
           const icon = data.weather[0].icon;
           const weatherData = { temperature: temperatureCelsius, icon };
-  
+
           setWeatherData(weatherData);
           setCity(users);
         }
-      } catch (error) {
-        console.error("Erro ao obter cidades ou dados do clima:", error);
+      } catch {
+        console.error("Erro ao obter cidades");
       }
     };
 
@@ -75,6 +103,8 @@ export default function Header() {
       clearInterval(contador);
     };
   }, []);
+  
+  
 
   return (
     <div>
@@ -90,15 +120,18 @@ export default function Header() {
         <div className={styles.clima__tempo}>
           <h1>{weatherData && weatherData.temperature}°C</h1>
           {weatherData && (
-            <img src={`http://openweathermap.org/img/wn/${weatherData.icon}.png`} alt="Weather Icon" />
-            )}
+            <img
+              src={`http://openweathermap.org/img/wn/${weatherData.icon}.png`}
+              alt="Weather Icon"
+            />
+          )}
           <p>
             {dado[0]?.city} - {dado[0]?.country}
           </p>
         </div>
         <div className={styles.logos}>
-          <a href="https://compass.uol/pt/home/" target="_blank">
-          <img src={logo} alt="" />
+          <a href="https://compass.uol/pt/home/" target="blank">
+            <img src={logo} alt="" />
           </a>
 
           <button>
@@ -113,17 +146,29 @@ export default function Header() {
           type="text"
           placeholder="Task or issue"
           className={styles.input__task}
+          value={descricao}
+          onChange={(e) => setDescricao(e.target.value)}
         />
-        <select name="dia" className={styles.dia}>
-          <option value="Sunday">Sunday</option>
+        <select
+          name="dia"
+          className={styles.dia}
+          onChange={(e) => setSemana(e.target.value)}
+          value={semana}
+        >
           <option value="Monday">Monday</option>
           <option value="Tuesday">Tuesday</option>
           <option value="Wednesday">Wednesday</option>
           <option value="Thursday">Thursday</option>
           <option value="Friday">Friday</option>
           <option value="Saturday">Saturday</option>
+          <option value="Sunday">Sunday</option>
         </select>
-        <select name="hora" className={styles.hora}>
+        <select
+          name="hora"
+          className={styles.hora}
+          onChange={(e) => setHora(e.target.value)}
+          value={hora}
+        >
           <option value="00:00">00:00</option>
           <option value="00:30">00:30</option>
           <option value="01:00">01:00</option>
@@ -176,7 +221,7 @@ export default function Header() {
       </div>
 
       <div className={styles.buttons}>
-        <button className={styles.icon_plus}>
+        <button className={styles.icon_plus} onClick={adicionarTarefa}>
           <img src={plus} alt="" />
           <p className={styles.calendar}>Add to calendar</p>
         </button>
@@ -186,49 +231,51 @@ export default function Header() {
         </button>
       </div>
 
-            <div className={styles.calendario}>
-              <div className={styles.monday}>
-                <p className={styles.semana}>Monday</p>
+      <div className={styles.calendario}>
+        <button className={`${styles.monday} ${cor === "monday" ? styles.corSemana : ""}`} onClick={() => mudaCor("monday")}>
+          <p className={styles.semana}>Monday</p>
+        </button>
+        <button className={`${styles.tuesday} ${cor === "tuesday" ? styles.corSemana : ""}`} onClick={() => mudaCor("tuesday")}>
+          <p className={styles.semana}>Tuesday</p>
+        </button>
+        <button
+          className={`${styles.wednesday} ${cor === "wednesday" ? styles.corSemana : ""}`} onClick={() => mudaCor("wednesday")}>
+          <p className={styles.semana}>Wednesday</p>
+        </button>
+        <button
+          className={`${styles.thursday} ${cor === "thursday" ? styles.corSemana : ""}`} onClick={() => mudaCor("thursday")} >
+          <p className={styles.semana}>Thursday</p>
+        </button>
+        <button className={`${styles.friday} ${cor === "friday" ? styles.corSemana : ""}`} onClick={() => mudaCor("friday")}>
+          <p className={styles.semana}>Friday</p>
+        </button>
+        <button className={`${styles.saturday} ${cor === "saturday" ? styles.corSemana : ""}`} onClick={() => mudaCor("saturday")}>
+          <p className={styles.semana}>Saturday</p>
+        </button>
+        <button className={`${styles.sunday} ${cor === "sunday" ? styles.corSemana : ""}`} onClick={() => mudaCor("sunday")}>
+          <p className={styles.semana}>Sunday</p>
+        </button>
+      </div>
+
+      <div className={styles.time_planner}>
+        <h1>Time</h1>
+      </div>
+
+      <ul className={styles.container_task}>
+        {task.map((elemento) =>  (
+          <li key={elemento.id}>
+            <div className={styles.tasks}>
+              <div className={styles.horas_task}>
+                <span>{elemento.hora}</span>
               </div>
-              <div className={styles.tuesday}>
-                <p className={styles.semana}>Tuesday</p>
-              </div>
-              <div className={styles.wednesday}>
-                <p className={styles.semana}>Wednesday</p>
-              </div>
-              <div className={styles.thursday}>
-                <p className={styles.semana}>Thursday</p>
-              </div>
-              <div className={styles.friday}>
-                <p className={styles.semana}>Friday</p>
-              </div>
-              <div className={styles.saturday}>
-                <p className={styles.semana}>Saturday</p>
-              </div>
-              <div className={styles.sunday}>
-                <p className={styles.semana}>Sunday</p>
+              <div className={styles.text_task}>
+                <span>{elemento.descricao}</span>
+                <button>Delete</button>
               </div>
             </div>
-
-
-            <div className={styles.time_planner}>
-              <h1>Time</h1>
-            </div>
-
-
-            <ul className={styles.container_task}>
-              <li>
-                <div className={styles.tasks}>
-                <div className={styles.horas_task}>
-                  <span>10h30m</span>
-                </div>
-                <div className={styles.text_task}>
-                  <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem ipsum dolor sit amet, consectetur adipiscing elit</span>
-                  <button>Delete</button>
-                </div>
-                </div>
-              </li>
-            </ul>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
