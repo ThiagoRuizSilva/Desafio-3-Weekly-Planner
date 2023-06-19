@@ -3,10 +3,11 @@ import logo from "../../../assets/CompassHeader.svg";
 import logout from "../../../assets/logout.svg";
 import { useState, useEffect } from "react";
 import cityClima from "../../../Api";
-import { dados, db } from "../../../FirebaseConection";
+import { auth, dados, db } from "../../../FirebaseConection";
 import plus from "../../../assets/plus.svg";
 import { collection, addDoc } from "firebase/firestore";
 import menos from "../../../assets/icon_menos.svg";
+import { signOut } from "firebase/auth";
 
 export default function Header() {
   const [horario, setHorario] = useState("");
@@ -113,6 +114,10 @@ export default function Header() {
     };
   }, []);
 
+  async function Logout() {
+    await signOut(auth)
+  }
+
   return (
     <div>
       <header>
@@ -141,7 +146,7 @@ export default function Header() {
             <img src={logo} alt="" />
           </a>
 
-          <button>
+          <button onClick={Logout}>
             <img src={logout} alt="" />
             <p>Logout</p>
           </button>
