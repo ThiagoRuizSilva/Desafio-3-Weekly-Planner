@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import cityClima from "../../../Api";
 import { auth, dados, db } from "../../../FirebaseConection";
 import plus from "../../../assets/plus.svg";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, } from "firebase/firestore";
 import menos from "../../../assets/icon_menos.svg";
 import { signOut } from "firebase/auth";
 
@@ -43,7 +43,7 @@ export default function Header() {
       alert("Tarefa adicionada");
       setDescricao("");
       setSelectSemana("monday");
-      user;
+      // user;
       setHora("00:00");
       // setSemana(semana);
       console.log(semana);
