@@ -1,6 +1,6 @@
 # Weekly Planner
 
-![GIF](../Desafio-3-Weekly-Planner//src/assets/ezgif.com-animated-gif-maker.gif)
+![GIF](src/assets/ezgif.com-animated-gif-maker.gif)
 
 O site Weekly Planner é um aplicativo digital desenvolvido para auxiliar os usuários na organização de suas tarefas diárias de maneira eficiente e conveniente. Com recursos intuitivos e uma interface amigável, o Planner Online facilita o gerenciamento do tempo e a priorização das atividades diárias.
 
@@ -23,22 +23,50 @@ No Weekly Planner, a missão é ajudar os usuários a se tornarem mais produtivo
 - Sistema de register
 - Horário em tempo real
 
-## Melhorias
-
-O projeto ainda está em desenvolvimento!
-
-
 ## Stack utilizada
 
 **Front-end:** ReactJS
+**Banco de dados** Firebase
+
+## Requisitos antes de executar o projeto: 
+
+**Node.js: Certifique-se de ter o Node.js instalado em seu sistema. Você pode baixá-lo em https://nodejs.org/.**
+
+**Git: Se você ainda não o possui, você pode fazer o download em https://git-scm.com/.**
+
+**Visual Studio Code: Recomendamos a utilização do Visual Studio Code como ambiente de desenvolvimento. Caso ainda não o tenha, você pode instalá-lo a partir do link https://code.visualstudio.com/.**
 
 
+## Configuração Local
 
+Para configurar o projeto localmente, siga estes passos:
 
-## Rodando os testes
+ Clone o repositório:
 
-Para rodar os testes, rode o seguinte comando
+```bash
+ git clone https://github.com/ThiagoRuizSilva/Desafio-3-Weekly-Planner.git
+```
+
+## Navegue até o diretório do projeto:
+
+```bash
+ cd cd ./Desafio-3-Weekly-Planner/
+```
+
+## Instale as dependências:
+
+```bash
+  npm install
+```
+
+## Executar a aplicação
+
+Para executar a aplicação, rode o seguinte comando
 
 ```bash
   npm run dev
 ```
+
+
+
+
