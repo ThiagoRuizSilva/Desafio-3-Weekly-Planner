@@ -1,8 +1,10 @@
 # Weekly Planner
 
-  O site Weekly Planner é um aplicativo digital desenvolvido para auxiliar os usuários na organização de suas tarefas diárias de maneira eficiente e conveniente. Com recursos intuitivos e uma interface amigável, o Planner Online facilita o gerenciamento do tempo e a priorização das atividades diárias.
+![GIF](../Desafio-3-Weekly-Planner//src/assets/ezgif.com-animated-gif-maker.gif)
 
-  Para começar a utilizar o Weekly Planner, é necessário criar uma conta no sistema. O processo de registro é simples e rápido, exigindo apenas algumas informações básicas. Após criar uma conta, os usuários terão acesso a todos os recursos e funcionalidades do Weekly Planner.
+O site Weekly Planner é um aplicativo digital desenvolvido para auxiliar os usuários na organização de suas tarefas diárias de maneira eficiente e conveniente. Com recursos intuitivos e uma interface amigável, o Planner Online facilita o gerenciamento do tempo e a priorização das atividades diárias.
+
+Para começar a utilizar o Weekly Planner, é necessário criar uma conta no sistema. O processo de registro é simples e rápido, exigindo apenas algumas informações básicas. Após criar uma conta, os usuários terão acesso a todos os recursos e funcionalidades do Weekly Planner.
 
 Ao fazer login, os usuários serão direcionados para uma página inicial personalizada. Nessa página, eles encontrarão uma visão geral das tarefas, além de informações úteis como o horário atual, o tempo de sua cidade, a data e o dia da semana. Esses dados são atualizados automaticamente, mantendo os usuários informados em tempo real.
 
