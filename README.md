@@ -1,5 +1,7 @@
 # Bem-vindo(a) ao Weekly Planner!
 
+## Demonstração
+
 ![GIF](src/assets/ezgif.com-animated-gif-maker.gif)
 
 O site Weekly Planner é um aplicativo digital desenvolvido para auxiliar os usuários na organização de suas tarefas diárias de maneira eficiente e conveniente. Com recursos intuitivos e uma interface amigável, o Planner Online facilita o gerenciamento do tempo e a priorização das atividades diárias.
@@ -13,6 +15,7 @@ Uma das características mais úteis do Weekly Planner é a organização das ta
 Além disso, o sistema do Weekly Planner inclui uma validação de usuários para garantir a segurança e privacidade dos dados. Isso significa que apenas o usuário terá acesso à sua conta e às informações relacionadas a ela.
 
 No Weekly Planner, a missão é ajudar os usuários a se tornarem mais produtivos, organizados e eficientes em suas atividades diárias. O aplicativo simplifica o gerenciamento de tarefas, permitindo que os usuários foquem no que é mais importante. Experimente o Weekly Planner agora mesmo e descubra como ele pode aprimorar sua rotina!
+
 ## Funcionalidades
 
 - Planner de tarefas
@@ -26,6 +29,7 @@ No Weekly Planner, a missão é ajudar os usuários a se tornarem mais produtivo
 ## Stack utilizada
 
 **Front-end:** ReactJS
+
 **Banco de dados** Firebase
 
 ## Requisitos antes de executar o projeto: 
@@ -50,7 +54,7 @@ Para configurar o projeto localmente, siga estes passos:
 ## Navegue até o diretório do projeto:
 
 ```bash
- cd cd ./Desafio-3-Weekly-Planner/
+  cd ./Desafio-3-Weekly-Planner/
 ```
 
 ## Instale as dependências:
