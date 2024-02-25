@@ -1,6 +1,8 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore, getDocs, collection } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
+import { onAuthStateChanged } from 'firebase/auth';
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyDQ8e2Ce28udLKipKU7zMsHWbdqkScXF5k",
@@ -17,7 +19,21 @@ const firebaseConfig = {
   const db = getFirestore(firebaseApp)
   const auth = getAuth(firebaseApp)
 
-  export { db, auth }
+  export { db, auth, userId }
+
+  const loggedUser = getAuth();
+let userId = null;
+
+onAuthStateChanged(loggedUser, (user) => {
+  if (user) {
+    userId = user.uid;
+    
+    callback(userId);
+  } else {
+    console.log("Nenhum usuário logado");
+  }
+});
+
 
   export const dados = async () => {
     const cityname = collection(db, "usuario");
@@ -32,3 +48,7 @@ const firebaseConfig = {
     });
     return cep;
   };
+
+  function callback(userId) {
+    console.log("User ID:", userId);
+  }

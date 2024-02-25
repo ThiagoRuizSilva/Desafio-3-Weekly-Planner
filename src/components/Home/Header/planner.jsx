@@ -1,104 +1,76 @@
+
 import styles from "./styles.module.css";
 import logo from "../../../assets/CompassHeader.svg";
 import logout from "../../../assets/logout.svg";
 import { useState, useEffect } from "react";
-import cityClima from "../../../Api";
-import { auth, dados, db } from "../../../FirebaseConection";
+import Clima from "../../clima";
+import { auth, db, userId } from "../../../FirebaseConection";
 import plus from "../../../assets/plus.svg";
-import { collection, addDoc, } from "firebase/firestore";
 import menos from "../../../assets/icon_menos.svg";
 import { signOut } from "firebase/auth";
+import {
+  collection,
+  deleteDoc,
+  getDocs,
+  doc,
+  addDoc,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 
 export default function Header() {
   const [horario, setHorario] = useState("");
   const [data, setData] = useState("");
+  const [task, setTasks] = useState([]);
+  const [title, setTitle] = useState("");
+  const [selectedDay, setSelectedDay] = useState("monday");
+  const [time, setTime] = useState("00:00");
 
-  const [weatherData, setWeatherData] = useState(null);
-  const [dado, setCity] = useState([]);
+  const [activeDay, setActiveDay] = useState("monday");
 
-  const [descricao, setDescricao] = useState("");
-  const [semana, setSemana] = useState("monday");
-  const [selectSemana, setSelectSemana] = useState("monday");
-  const [hora, setHora] = useState("00:00");
-  const [task, setTask] = useState([]);
 
-  const [cor, setCor] = useState("monday");
-  const user = localStorage.getItem("user");
 
-  const mudaCor = (semana) => {
-    setCor(semana);
+  const handleDayClick = (day) => {
+    setActiveDay(day);
+    console.log(activeDay)
   };
 
-  const adicionarTarefa = async () => {
-    console.log(task);
-    try {
-      const newTask = {
-        descricao: descricao,
-        semana: selectSemana,
-        hora: hora,
-        cor: cor,
-        user: user,
-      };
-      await addDoc(collection(db, "tarefas"), newTask);
-      alert("Tarefa adicionada");
-      setDescricao("");
-      setSelectSemana("monday");
-      // user;
-      setHora("00:00");
-      // setSemana(semana);
-      console.log(semana);
-      setCor(semana);
-      setTask((atual) => {
-      return [...atual, newTask];
-      });
-    } catch (error) {
-      console.log(error);
-    }
-    console.log(task);
-  };
+  
 
   useEffect(() => {
-    const fetchWeatherData = async () => {
-      try {
-        const users = await dados();
+    const filterUsersTasks = query(
+      collection(db, "tasks"),
+      where("userId", "==", userId)
+    );
 
-        if (users.length > 0) {
-          const cidade = users[0].city;
-          const chave_api = "6793186352a0010d32b351353dc8ba84";
-          const url = `http://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${chave_api}`;
-          const response = await fetch(url);
-          const data = await response.json();
-          const temperatureCelsius = Math.round(data.main.temp - 273.15);
-          const icon = data.weather[0].icon;
-          const weatherData = { temperature: temperatureCelsius, icon };
+    const retrieve = onSnapshot(filterUsersTasks, (snapshot) => {
+      const taskList = [];
+      snapshot.forEach((doc) => {
+        const task = doc.data();
+        const taskId = doc.id;
+        const taskWithId = { ...task, id: taskId };
+        taskList.push(taskWithId);
+      });
 
-          setWeatherData(weatherData);
-          setCity(users);
+      taskList.sort((top, bottom) => {
+        if (top.time && bottom.time) {
+          return top.time.localeCompare(bottom.time);
         }
-      } catch {
-        console.error("Erro ao obter cidades");
-      }
-    };
+        return 0;
+      });
 
-    fetchWeatherData();
-  }, []);
+      setTasks(taskList);
+    });
+
+    return () => retrieve();
+  }, [userId]);
 
   useEffect(() => {
     const contador = setInterval(() => {
       const data = new Date();
       const meses = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
+        "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
       ];
       const dia = String(data.getDate()).padStart(2, "0");
       const ano = String(data.getFullYear());
@@ -114,8 +86,62 @@ export default function Header() {
     };
   }, []);
 
-  async function Logout() {
-    await signOut(auth)
+  const createTask = async (userId, task, day, taskTime) => {
+    try {
+      const docRef = await addDoc(collection(db, "tasks"), {
+        userId: userId,
+        task: task,
+        day: day,
+        time: taskTime,
+      });
+      const novoId = docRef.id;
+      console.log("ID gerado:", novoId);
+      alert("task created");
+      setTitle("");
+      setSelectedDay("monday");
+      setTime("00:00");
+    } catch (error) {
+      console.error("Erro ao criar tarefa:", error);
+    }
+  };
+
+  const handleAdd = () => {
+    if (title === "") {
+      alert("please provide a title");
+      return;
+    }
+    createTask(userId, title, selectedDay, time);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const docRef = doc(db, "tasks", id);
+      await deleteDoc(docRef);
+      alert("Task deleted successfully");
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
+  };
+
+  const Logout = async () => {
+    await signOut(auth);
+  };
+
+
+
+  async function handleDeleteDay(day) {
+    const filterTasksDAy = await getDocs(
+      query(collection(db, "tasks"), where("day", "==", activeDay))
+    );
+
+    filterTasksDAy.forEach(async (doc) => {
+      try {
+        await deleteDoc(doc.ref);
+        alert("Task deleted successfully");
+      } catch (error) {
+        console.error("Error deleting task:", error);
+      }
+    });
   }
 
   return (
@@ -129,18 +155,7 @@ export default function Header() {
           <h1>{horario}</h1>
           <p>{data}</p>
         </div>
-        <div className={styles.clima__tempo}>
-          <h1>{weatherData && weatherData.temperature}°C</h1>
-          {weatherData && (
-            <img
-              src={`http://openweathermap.org/img/wn/${weatherData.icon}.png`}
-              alt="Weather Icon"
-            />
-          )}
-          <p>
-            {dado[0]?.city} - {dado[0]?.country}
-          </p>
-        </div>
+        <Clima/>
         <div className={styles.logos}>
           <a href="https://compass.uol/pt/home/" target="blank">
             <img src={logo} alt="" />
@@ -158,14 +173,14 @@ export default function Header() {
           type="text"
           placeholder="Task or issue"
           className={styles.input__task}
-          value={descricao}
-          onChange={(e) => setDescricao(e.target.value)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
         <select
           name="dia"
           className={styles.dia}
-          onChange={(e) => setSelectSemana(e.target.value)}
-          value={selectSemana}
+          onChange={(e) => setSelectedDay(e.target.value)}
+          value={selectedDay}
         >
           <option value="monday">Monday</option>
           <option value="tuesday">Tuesday</option>
@@ -178,8 +193,8 @@ export default function Header() {
         <select
           name="hora"
           className={styles.hora}
-          onChange={(e) => setHora(e.target.value)}
-          value={hora}
+          onChange={(e) => setTime(e.target.value)}
+          value={time}
         >
           <option value="00:00">00:00</option>
           <option value="00:30">00:30</option>
@@ -233,11 +248,11 @@ export default function Header() {
       </div>
 
       <div className={styles.buttons}>
-        <button className={styles.icon_plus} onClick={adicionarTarefa}>
+        <button className={styles.icon_plus} onClick={handleAdd}>
           <img src={plus} alt="" />
           <p className={styles.calendar}>Add to calendar</p>
         </button>
-        <button className={styles.icon_menos}>
+        <button className={styles.icon_menos} onClick={handleDeleteDay}>
           <img src={menos} alt="" />
           <p className={styles.delete}>Delete All</p>
         </button>
@@ -246,57 +261,57 @@ export default function Header() {
       <div className={styles.calendario}>
         <button
           className={`${styles.tab} ${styles.monday} ${
-            cor === "monday" ? styles.corSemana : ""
+            activeDay === "monday" ? styles.corSemana : ""
           }`}
-          onClick={() => mudaCor("monday")}
+          onClick={() => handleDayClick("monday")}
         >
           <p className={styles.semana}>Monday</p>
         </button>
         <button
           className={`${styles.tab} ${styles.tuesday} ${
-            cor === "tuesday" ? styles.corSemana : ""
+            activeDay === "tuesday" ? styles.corSemana : ""
           }`}
-          onClick={() => mudaCor("tuesday")}
+          onClick={() => handleDayClick("tuesday")}
         >
           <p className={styles.semana}>Tuesday</p>
         </button>
         <button
           className={`${styles.tab} ${styles.wednesday} ${
-            cor === "wednesday" ? styles.corSemana : ""
+            activeDay === "wednesday" ? styles.corSemana : ""
           }`}
-          onClick={() => mudaCor("wednesday")}
+          onClick={() => handleDayClick("wednesday")}
         >
           <p className={styles.semana}>Wednesday</p>
         </button>
         <button
           className={`${styles.tab} ${styles.thursday} ${
-            cor === "thursday" ? styles.corSemana : ""
+            activeDay === "thursday" ? styles.corSemana : ""
           }`}
-          onClick={() => mudaCor("thursday")}
+          onClick={() => handleDayClick("thursday")}
         >
           <p className={styles.semana}>Thursday</p>
         </button>
         <button
           className={`${styles.tab} ${styles.friday} ${
-            cor === "friday" ? styles.corSemana : ""
+            activeDay === "friday" ? styles.corSemana : ""
           }`}
-          onClick={() => mudaCor("friday")}
+          onClick={() => handleDayClick("friday")}
         >
           <p className={styles.semana}>Friday</p>
         </button>
         <button
           className={`${styles.tab} ${styles.saturday} ${
-            cor === "saturday" ? styles.corSemana : ""
+            activeDay === "saturday" ? styles.corSemana : ""
           }`}
-          onClick={() => mudaCor("saturday")}
+          onClick={() => handleDayClick("saturday")}
         >
           <p className={styles.semana}>Saturday</p>
         </button>
         <button
           className={` ${styles.tab} ${styles.sunday} ${
-            cor === "sunday" ? styles.corSemana : ""
+            activeDay === "sunday" ? styles.corSemana : ""
           }`}
-          onClick={() => mudaCor("sunday")}
+          onClick={() => handleDayClick("sunday")}
         >
           <p className={styles.semana}>Sunday</p>
         </button>
@@ -307,18 +322,18 @@ export default function Header() {
       </div>
 
       <ul className={styles.container_task}>
-        {task.map((elemento) =>
-          cor === "" || (elemento.semana && elemento.semana.includes(cor)) ? (
-            <li key={elemento.descricao}>
+      {task.map((elemento) =>
+            activeDay === null || (elemento.day && elemento.day.includes(activeDay)) ? (
+              <li key={elemento.id}>
               <div className={styles.tasks}>
-                <div className={` ${styles.horas_task} ${styles[elemento.semana]}`}>
-                  <span>{elemento.hora}</span>
+                <div className={` ${styles.horas_task} ${styles[elemento.day]}`}>
+                  <span>{elemento.time}</span>
                 </div>
                 <div>
-                  <div className={` ${styles.marcador} ${styles[elemento.semana]}`}></div>
-                  <div className={` ${styles.text_task} ${styles[elemento.semana]}`}>
-                    <span>{elemento.descricao}</span>
-                    <button>Delete</button>
+                  <div className={` ${styles.marcador} ${styles[elemento.day]}`}></div>
+                  <div className={` ${styles.text_task} ${styles[elemento.day]}`}>
+                    <span>{elemento.task}</span>
+                    <button onClick={() => handleDelete(elemento.id)}>Delete</button>
                   </div>
                 </div>
               </div>

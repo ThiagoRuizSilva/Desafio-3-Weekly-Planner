@@ -1,0 +1,15 @@
+    .clima__tempo {
+        position: absolute;
+        left: 1194px;
+        top: 26px;
+      
+        font-family: "Mulish";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 18px;
+      
+        text-align: center;
+      
+        color: #222222;
+      }

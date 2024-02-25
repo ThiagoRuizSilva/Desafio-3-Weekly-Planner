@@ -112,6 +112,7 @@ body {
   align-items: center;
   text-align: center;
   color: #3b3e45;
+  margin-left: 50px;
 }
 .dates__header p {
   width: 201px;
@@ -362,7 +363,7 @@ li {
   box-sizing: border-box;
   width: 85px;
   height: 85px;
-  /* background: #ff8000; */
+/* background: #ff8000;  */
   border-bottom: 1px solid #dcdfe3;
   border-radius: 10px;
   /*  */
@@ -370,6 +371,8 @@ li {
 
 .horas_task span {
   position: absolute;
+  display: flex;
+  justify-content: center;
   width: 85px;
   height: 20px;
   margin-top: 23px;
