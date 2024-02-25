@@ -1,4 +1,4 @@
-# Weekly Planner
+# Bem-vindo(a) ao Weekly Planner!
 
 ![GIF](src/assets/ezgif.com-animated-gif-maker.gif)
 
