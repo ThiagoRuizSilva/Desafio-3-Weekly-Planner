@@ -4,8 +4,9 @@ import styles from "./index.module.css";
 import { TiLockClosedOutline } from "react-icons/ti";
 import { AiOutlineUser } from "react-icons/ai";
 import { auth } from "../../FirebaseConection";
-import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { useEffect, useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 
 
@@ -27,7 +28,7 @@ export default function Form() {
         .then(() => {
           setLoged(false);
           localStorage.setItem("user", email)
-          alert("Usuario logado");
+          toast.success("Usuario logado");
           navigate("/")
         })
         .catch(() => {
@@ -40,7 +41,7 @@ export default function Form() {
           // navigate('/register')
         });
     } else {
-      alert("prencha os campo");
+      toast.warning("prencha os campo");
     }
   }
 

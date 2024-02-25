@@ -18,6 +18,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 export default function Header() {
   const [horario, setHorario] = useState("");
@@ -96,7 +97,7 @@ export default function Header() {
       });
       const novoId = docRef.id;
       console.log("ID gerado:", novoId);
-      alert("task created");
+      toast.success("task created");
       setTitle("");
       setSelectedDay("monday");
       setTime("00:00");
@@ -107,7 +108,7 @@ export default function Header() {
 
   const handleAdd = () => {
     if (title === "") {
-      alert("please provide a title");
+      toast.warning("please provide a title");
       return;
     }
     createTask(userId, title, selectedDay, time);
@@ -117,7 +118,7 @@ export default function Header() {
     try {
       const docRef = doc(db, "tasks", id);
       await deleteDoc(docRef);
-      alert("Task deleted successfully");
+      toast.success("Task deleted successfully");
     } catch (error) {
       console.error("Error deleting task:", error);
     }
@@ -137,7 +138,7 @@ export default function Header() {
     filterTasksDAy.forEach(async (doc) => {
       try {
         await deleteDoc(doc.ref);
-        alert("Task deleted successfully");
+        toast.success("Task deleted successfully");
       } catch (error) {
         console.error("Error deleting task:", error);
       }

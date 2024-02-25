@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+
 import styles from "./index.module.css";
 
 import { addDoc, collection } from "firebase/firestore";
@@ -6,6 +6,7 @@ import { auth, db } from "../../FirebaseConection";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function FormRegister() {
   const navigate = useNavigate();
@@ -57,7 +58,7 @@ export default function FormRegister() {
       const age = Math.abs(ageDate.getUTCFullYear() - 1970);
 
       if (age < 18) {
-        alert("Você deve ter pelo menos 18 anos para se cadastrar.");
+        toast.error("Você deve ter pelo menos 18 anos para se cadastrar.");
         return;
       }
     }
@@ -71,30 +72,30 @@ export default function FormRegister() {
       city === "" ||
       confirmPassword === ""
     ) {
-      alert("Preencha todos campos por favor");
+      toast.warning("Preencha todos campos por favor");
       return;
     }
 
     if (!handleEmail(email)) {
-      alert("O email não atende aos requisitos");
+      toast.warning("O email não atende aos requisitos");
       return;
     }
     if (!handlePassword(password)) {
-      alert("A senha não atende aos requisitos");
+      toast.warning("A senha não atende aos requisitos");
       return;
     }
     if (password != confirmPassword) {
-      alert("As senhas não correspondem.");
+      toast.error("As senhas não correspondem.");
       return;
     }
 
     await createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
-        alert("Email validado");
+        toast.success("Email validado");
         // navigate('/');
       })
       .catch(() => {
-        alert("Email já existente insira outro");
+        toast.error("Email já existente insira outro");
       });
 
     await addDoc(collection(db, "usuario"), {
@@ -103,7 +104,7 @@ export default function FormRegister() {
       country,
       city,
     });
-    alert("Registro feito com sucesso");
+    toast.success("Registro feito com sucesso");
     navigate("/login");
   }
 
